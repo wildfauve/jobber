@@ -11,7 +11,7 @@ def cli():
 
 @click.command()
 @click.argument('project')
-def new_job(project):
+def scaffold_new_job(project):
     """
     Scaffolds a new job project.  Provide the project name.
     """
@@ -19,4 +19,4 @@ def new_job(project):
     pass
 
 
-cli.add_command(new_job)
+cli.add_command(scaffold_new_job)
