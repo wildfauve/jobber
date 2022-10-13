@@ -10,8 +10,13 @@ def run(project):
     """
     Scaffolds a new job project
     """
+    cli_helpers.echo(f"Scaffolding job for project: {project}")
+
     result = (monad.Right(config.config_value(project))
-              >> install_dependencies)
+              >> install_dependencies
+              >> create_folders)
+
+    cli_helpers.echo("Success: Job Scaffolding Complete")
 
     if env.Env().env == "test":
         return result
@@ -23,4 +28,9 @@ def run(project):
 def install_dependencies(cfg):
     actions.add_library_dependencies(cfg)
     cli_helpers.echo("Success: Create Standard Job Dependencies")
+    return monad.Right(cfg)
+
+def create_folders(cfg):
+    actions.create_folders(cfg)
+    cli_helpers.echo("Success: Create Folders")
     return monad.Right(cfg)

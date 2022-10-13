@@ -2,5 +2,5 @@ import pytest
 from jobber.model import config
 
 @pytest.fixture
-def job_config():
-    return config.Config(project="test_job")
+def jobber_config():
+    return config.Config(project="my_job")

@@ -1,16 +1,20 @@
 from jobber.util import cli_helpers
 
-def jobsworth(cfg):
-    return add_dependency("git+https://github.com/wildfauve/jobsworth#main")
+deps = [
+    ("git+https://github.com/wildfauve/jobsworth#main", 'project'),
+    ("dependency-injector", "project"),
+    ("pyspark", "project"),
+    ("delta-spark", "project"),
+    ("pytest", "dev"),
+    ("pytest-env", "dev"),
+    ("pytest-mock", "dev"),
+    ("pdbpp", "dev")
+]
 
-def di(cfg):
-    return add_dependency("dependency-injector")
-
-def pyspark(cfg):
-    return add_dependency("pyspark")
-
-def delta(cfg):
-    return add_dependency("delta-spark")
 
 def add_dependency(dep):
-    return cli_helpers.run_command(["poetry", "add", dep], message=f"Adding {dep}")
+    dependency, group = dep
+    if group == "project":
+        return cli_helpers.run_command(["poetry", "add", dependency], message=f"Adding {dependency}")
+    return cli_helpers.run_command(["poetry", "add", dependency, "--group", "dev"],
+                                   message=f"Adding {dependency} to dev")
