@@ -22,4 +22,4 @@ class Container(containers.DeclarativeContainer):
 """
 
 def to_template(cfg):
-    return template.format(project=cfg.project)
+    return template.format(project=cfg.project_name())

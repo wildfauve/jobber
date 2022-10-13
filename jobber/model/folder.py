@@ -13,7 +13,7 @@ def create_folders(cfg):
 
 @curry(3)
 def folder_locations_for_layer(cfg, list_of_folders, layer):
-    return list_of_folders + [[cfg.project] + layer.location] + [[test_folder_location] + layer.test_location]
+    return list_of_folders + [[cfg.project_name()] + layer.location] + [[test_folder_location] + layer.test_location]
 
 
 

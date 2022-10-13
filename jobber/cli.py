@@ -10,12 +10,11 @@ def cli():
 
 
 @click.command()
-@click.argument('project')
-def scaffold_new_job(project):
+def scaffold_new_job():
     """
-    Scaffolds a new job project.  Provide the project name.
+    Scaffolds a new job project.  The project name comes from the pyproject.toml tool.poetry.name key
     """
-    new_job.run(project)
+    new_job.run()
     pass
 
 

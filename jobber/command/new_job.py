@@ -6,13 +6,13 @@ from jobber.model import config
 from jobber.util import cli_helpers, monad, error, env
 
 
-def run(project):
+def run(pyproject_location='pyproject.toml'):
     """
     Scaffolds a new job project
     """
-    cli_helpers.echo(f"Scaffolding job for project: {project}")
+    cli_helpers.echo(f"Scaffolding job for project")
 
-    result = (monad.Right(config.config_value(project))
+    result = (configure(pyproject_location)
               >> install_dependencies
               >> create_folders)
 
@@ -24,13 +24,28 @@ def run(project):
         sys.exit(1)
     sys.exit(0)
 
+def configure(pyproject_location):
+    result = actions.build_config(pyproject_location)
+    if result.is_right():
+        cli_helpers.echo(f"Building project at location {config.project_name(result.value)}")
+        return result
+
+    cli_helpers.echo(f"FAILURE: Project configuration failure")
+    return result
+
 
 def install_dependencies(cfg):
+    cli_helpers.echo("Adding Standard Job Dependencies")
+
     actions.add_library_dependencies(cfg)
+
     cli_helpers.echo("Success: Create Standard Job Dependencies")
     return monad.Right(cfg)
 
 def create_folders(cfg):
+    cli_helpers.echo("Creating Folders")
+
     actions.create_folders(cfg)
+
     cli_helpers.echo("Success: Create Folders")
     return monad.Right(cfg)

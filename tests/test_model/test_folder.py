@@ -10,13 +10,13 @@ def test_creates_all_folders(jobber_config, mocker):
     assert len(result) == 8
 
     expected_folder_paths = [
-        ['my_job', 'command'],
+        ['jobber', 'command'],
         ['tests', 'test_command'],
-        ['my_job', 'model'],
+        ['jobber', 'model'],
         ['tests', 'test_model'],
-        ['my_job', 'repo'],
+        ['jobber', 'repo'],
         ['tests', 'test_repo'],
-        ['my_job', 'util'],
+        ['jobber', 'util'],
         ['tests', 'test_util']]
 
     assert folder_helpers.FileManagerSpy().commands == expected_folder_paths
