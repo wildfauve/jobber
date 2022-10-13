@@ -4,15 +4,11 @@ import tomli
 from pathlib import Path
 
 from jobber.util import fn
+from jobber.model import value
+
 
 @dataclass
-class DataClassAbstract:
-    def replace(self, key, value):
-        setattr(self, key, value)
-        return self
-
-@dataclass
-class Config(DataClassAbstract):
+class Config(value.DataClassAbstract):
     pyproject_location: str
     pyproject_toml: Dict = None
 

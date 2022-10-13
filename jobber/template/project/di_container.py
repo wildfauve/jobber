@@ -1,3 +1,7 @@
+from pathlib import Path
+
+file_path = ["{project}", "initialiser", "di_container.py"]
+
 template = """
 from dependency_injector import containers, providers
 from jobsworth.repo import spark_db, hive_repo
@@ -21,5 +25,5 @@ class Container(containers.DeclarativeContainer):
                                  job_config)
 """
 
-def to_template(cfg):
+def render(cfg):
     return template.format(project=cfg.project_name())

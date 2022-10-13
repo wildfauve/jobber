@@ -1,9 +1,11 @@
 from jobber.model import folder
+from jobber.util import monad
 
 from tests.shared import folder_helpers
 
+
 def test_creates_all_folders(jobber_config, mocker):
-    folder_helpers.mock_file_manager(mocker)
+    folder_helpers.mock_file_manager_create_folder(mocker)
 
     result = folder.create_folders(jobber_config)
 
@@ -21,4 +23,15 @@ def test_creates_all_folders(jobber_config, mocker):
         ['tests', 'test_util'],
         ['tests', 'shared']]
 
-    assert folder_helpers.FileManagerSpy().commands == expected_folder_paths
+    assert folder_helpers.FileManagerSpy.commands == expected_folder_paths
+
+
+def test_build_python_templates(jobber_config, mocker):
+    folder_helpers.mock_file_manager_write_file(mocker)
+    result = folder.build_python_templates(jobber_config)
+
+    assert all(map(monad.maybe_value_ok, result))
+
+    cmds = folder_helpers.FileManagerSpy.commands
+
+    assert [f.file_path for f in cmds] == [['jobber', 'initialiser', 'di_container.py'], ['tests', 'shared', 'di.py']]

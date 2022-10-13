@@ -20,3 +20,6 @@ def create_folders(cfg):
     result = folder.create_folders(cfg)
 
     return monad.Right(cfg)
+
+def build_python_files_from_templates(cfg):
+    breakpoint()

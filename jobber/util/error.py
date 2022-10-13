@@ -24,6 +24,8 @@ class CliError(Exception):
 class ValidationError(CliError):
     pass
 
+class FileWritingError(CliError):
+    pass
 
 def error_message(ex: monad.EitherMonad):
     if not isinstance(ex, monad.MEither) or ex.is_right():
