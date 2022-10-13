@@ -1,4 +1,4 @@
-from pathlib import Path
+import re
 
 file_path = ["{project}", "initialiser", "di_container.py"]
 
@@ -25,5 +25,6 @@ class Container(containers.DeclarativeContainer):
                                  job_config)
 """
 
+
 def render(cfg):
-    return template.format(project=cfg.project_name())
+    return re.sub('^\n', '', template.format(project=cfg.project_name()))
