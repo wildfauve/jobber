@@ -3,7 +3,7 @@ from functools import reduce
 from pymonad.tools import curry
 
 from .folder_spec import initialiser, command, model, repo, util, shared
-from jobber.util import file_manager, fn, monad
+from jobber.util import file_manager, fn, monad, cli_helpers
 from . import value
 
 test_folder_location = 'tests'
@@ -55,6 +55,7 @@ def file_object(cfg, template) -> value.FileTemplate:
 
 
 def create_python_files(file_object: value.FileTemplate) -> monad.EitherMonad:
+    cli_helpers.echo(f"Creating Python file: {'.'.join(file_object.file_path)}")
     return file_manager.write_file(file_object)
 
 

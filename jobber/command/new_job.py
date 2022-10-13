@@ -14,7 +14,8 @@ def run(pyproject_location='pyproject.toml'):
 
     result = (configure(pyproject_location)
               >> install_dependencies
-              >> create_folders)
+              >> create_folders
+              >> build_python_files_from_templates)
 
     cli_helpers.echo("Success: Job Scaffolding Complete")
 
@@ -27,7 +28,7 @@ def run(pyproject_location='pyproject.toml'):
 def configure(pyproject_location):
     result = actions.build_config(pyproject_location)
     if result.is_right():
-        cli_helpers.echo(f"Building project at location {config.project_name(result.value)}")
+        cli_helpers.echo(f"SUCCESS: Build project at location {config.project_name(result.value)}")
         return result
 
     cli_helpers.echo(f"FAILURE: Project configuration failure")
@@ -49,3 +50,17 @@ def create_folders(cfg):
 
     cli_helpers.echo("Success: Create Folders")
     return monad.Right(cfg)
+
+def build_python_files_from_templates(cfg):
+    cli_helpers.echo("Building Python Files")
+
+    result = actions.build_python_files_from_templates(cfg)
+
+    if result.is_right():
+        cli_helpers.echo(f"SUCCESS: Adding python files")
+        return result
+
+    cli_helpers.echo(f"FAILURE: Some File files failed")
+    return result
+
+
