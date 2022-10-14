@@ -1,4 +1,4 @@
-file_path = ["{project}", "initialiser", "di_container.py"]
+file_path = ["{project}", "di_container.py"]
 
 template = """
 from dependency_injector import containers, providers

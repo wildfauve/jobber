@@ -1,5 +1,5 @@
 from jobber.template import project
 
-location = ['']
+# location = ['']
 
 templates = [project.di_container, project.job]

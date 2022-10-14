@@ -13,7 +13,7 @@ SERVICE_NAME = '<owning_service>'
 COSMOS_ACCOUNT_KEY = '<account key defined under keyvault scope>'
 COSMOS_ENDPOINT = '<cosmos_db_endpoint>'
 COSMOS_DB_NAME = '<cosmos_db_name>'
-COSMOS_CONTAINER_NAME '<cosmos_container_name>'
+COSMOS_CONTAINER_NAME = '<cosmos_container_name>'
 
 
 
