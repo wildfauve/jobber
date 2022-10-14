@@ -1,4 +1,5 @@
 from typing import List
+import re
 from functools import reduce
 from pymonad.tools import curry
 
@@ -47,11 +48,10 @@ def templates(cfg, layer):
     return list(map(file_object(cfg), layer.templates))
 
 
-
 @curry(2)
 def file_object(cfg, template) -> value.FileTemplate:
     return value.FileTemplate(file_path=apply_path_template(cfg, template.file_path),
-                              rendered_template=template.render(cfg))
+                              rendered_template=templater(cfg, template))
 
 
 def create_python_files(file_object: value.FileTemplate) -> monad.EitherMonad:
@@ -62,6 +62,11 @@ def create_python_files(file_object: value.FileTemplate) -> monad.EitherMonad:
 def apply_path_template(cfg, path: List):
     return list(map(format_path(cfg), path))
 
+
 @curry(2)
 def format_path(cfg, fragment):
     return fragment.format(project=cfg.project_name())
+
+
+def templater(cfg, template):
+    return re.sub('^\n', '', template.template.format(project=cfg.project_name()))

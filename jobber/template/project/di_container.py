@@ -1,5 +1,3 @@
-import re
-
 file_path = ["{project}", "initialiser", "di_container.py"]
 
 template = """
@@ -26,5 +24,3 @@ class Container(containers.DeclarativeContainer):
 """
 
 
-def render(cfg):
-    return re.sub('^\n', '', template.format(project=cfg.project_name()))

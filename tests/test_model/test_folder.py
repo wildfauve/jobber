@@ -34,4 +34,8 @@ def test_build_python_templates(jobber_config, mocker):
 
     cmds = folder_helpers.FileManagerSpy.commands
 
-    assert [f.file_path for f in cmds] == [['jobber', 'initialiser', 'di_container.py'], ['tests', 'shared', 'di.py']]
+    expected_paths = [['jobber', 'initialiser', 'a_container.py'], ['jobber', 'repo', 'dependencies.py'],
+                      ['jobber', 'repo', 'db.py'], ['jobber', 'util', 'config.py'],
+                      ['jobber', 'util', 'dependencies.py'], ['tests', 'shared', 'di.py']]
+
+    assert [f.file_path for f in cmds] == expected_paths

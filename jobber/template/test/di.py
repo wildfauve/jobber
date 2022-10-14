@@ -1,5 +1,3 @@
-from pathlib import Path
-
 file_path = ["tests", "shared", "di.py"]
 
 
@@ -41,6 +39,3 @@ def test_container():
     di.override(over)
     return over
 """
-
-def render(cfg):
-    return template.format(project=cfg.project_name())
