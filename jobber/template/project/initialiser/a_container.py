@@ -4,8 +4,8 @@ template = """
 from jobsworth import spark_job
 from jobsworth.util import env
 
-from cbor_streamer import di_container
-from cbor_streamer.util import config
+from {project} import di_container
+from {project}.util import config
 
 mods = ['{project}.util.dependencies',
         '{project}.repo.dependencies']
