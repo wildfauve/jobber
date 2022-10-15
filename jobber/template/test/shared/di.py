@@ -30,6 +30,20 @@ class OverridingContainer(containers.DeclarativeContainer):
 
     job_config = providers.Callable(config_for_testing.build_job_config)
 
+    secrets_provider = providers.Factory(
+        secrets.Secrets,
+        session,
+        job_config,
+        databricks.DatabricksUtilMockWrapper(
+            load_secrets={{
+                f"{{config_for_testing.SECRETS_SCOPE}}": {{"<a-secret-name>": "<a-secret"}}
+            }}
+        ),
+        config_for_testing.SECRETS_SCOPE)
+
+    
+    
+
     database = providers.Factory(spark_db.Db,
                                  session,
                                  job_config)
