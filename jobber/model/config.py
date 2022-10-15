@@ -9,6 +9,9 @@ from jobber.model import value
 
 @dataclass
 class Config(value.DataClassAbstract):
+    domain: str
+    service: str
+    dataproduct: str
     pyproject_location: str
     pyproject_toml: Dict = None
 
@@ -16,8 +19,11 @@ class Config(value.DataClassAbstract):
         return fn.deep_get(self.pyproject_toml, ['tool', 'poetry', 'name'])
 
 
-def config_value(pyproject="pyproject.toml") -> Config:
-    return add_project_toml(Config(pyproject_location=pyproject))
+def config_value(domain, service, dataproduct, pyproject="pyproject.toml") -> Config:
+    return add_project_toml(Config(domain=domain,
+                                   service=service,
+                                   dataproduct=dataproduct,
+                                   pyproject_location=pyproject))
 
 
 def project_name(cfg):

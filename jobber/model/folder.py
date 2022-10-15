@@ -3,12 +3,12 @@ import re
 from functools import reduce
 from pymonad.tools import curry
 
-from .folder_spec import root, initialiser, command, model, repo, util, shared
+from .folder_spec import root, initialiser, command, model, repo, util, shared, test_job, test_util
 from jobber.util import file_manager, fn, monad, cli_helpers
 from . import value
 
 test_folder_location = 'tests'
-layer_fns = [root, initialiser, command, model, repo, util, shared]
+layer_fns = [root, initialiser, command, model, repo, util, shared, test_job, test_util]
 
 
 def create_folders(cfg):
@@ -69,4 +69,7 @@ def format_path(cfg, fragment):
 
 
 def templater(cfg, template):
-    return re.sub('^\n', '', template.template.format(project=cfg.project_name()))
+    return re.sub('^\n', '', template.template.format(domain=cfg.domain,
+                                                      service=cfg.service,
+                                                      dataproduct=cfg.dataproduct,
+                                                      project=cfg.project_name()))

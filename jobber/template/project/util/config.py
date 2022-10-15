@@ -7,13 +7,14 @@ from jobsworth.util import env
 JOB_URN_BASE = 'urn:sparkjob:<job_name>'
 TABLE_FORMAT = 'delta'
 DATABASE_NAME = '<hive_db_name>'
-DOMAIN_NAME = '<domain_name>'
-DATA_PRODUCT_NAME = '<data_product_name>'
-SERVICE_NAME = '<owning_service>'
+DOMAIN_NAME = '{domain}'
+DATA_PRODUCT_NAME = '{dataproduct}'
+SERVICE_NAME = '{service}'
 COSMOS_ACCOUNT_KEY = '<account key defined under keyvault scope>'
 COSMOS_ENDPOINT = '<cosmos_db_endpoint>'
 COSMOS_DB_NAME = '<cosmos_db_name>'
 COSMOS_CONTAINER_NAME = '<cosmos_container_name>'
+SECRETS_SCOPE = '<secret_scope>' # delete if you want the default: <domain>.<service>.<env>
 
 
 

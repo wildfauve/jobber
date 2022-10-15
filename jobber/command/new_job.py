@@ -6,13 +6,13 @@ from jobber.model import config
 from jobber.util import cli_helpers, monad, error, env
 
 
-def run(pyproject_location='pyproject.toml'):
+def run(domain: str, service: str, dataproduct: str, pyproject_location='pyproject.toml'):
     """
     Scaffolds a new job project
     """
     cli_helpers.echo(f"Scaffolding job for project")
 
-    result = (configure(pyproject_location)
+    result = (configure(domain, service, dataproduct, pyproject_location)
               >> install_dependencies
               >> create_folders
               >> build_python_files_from_templates)
@@ -25,8 +25,8 @@ def run(pyproject_location='pyproject.toml'):
         sys.exit(1)
     sys.exit(0)
 
-def configure(pyproject_location):
-    result = actions.build_config(pyproject_location)
+def configure(domain, service, dataproduct, pyproject_location):
+    result = actions.build_config(domain, service, dataproduct, pyproject_location)
     if result.is_right():
         cli_helpers.echo(f"SUCCESS: Build project at location {config.project_name(result.value)}")
         return result

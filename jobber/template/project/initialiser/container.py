@@ -1,4 +1,4 @@
-file_path = ["{project}", "initialiser", "a_container.py"]
+file_path = ["{project}", "initialiser", "container.py"]
 
 template = """
 from jobsworth import spark_job

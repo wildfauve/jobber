@@ -7,6 +7,6 @@ def test_creates_new_job(mocker):
     folder_helpers.mock_file_manager_create_folder(mocker)
     folder_helpers.mock_file_manager_write_file(mocker)
 
-    result = new_job.run()
+    result = new_job.run(domain="my_domain", service="my_service", dataproduct="my_data_product")
 
     assert result.is_right()

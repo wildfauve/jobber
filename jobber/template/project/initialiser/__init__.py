@@ -1,1 +1,1 @@
-from . import a_container
+from . import container, module_initialiser

@@ -9,8 +9,6 @@ def test_creates_all_folders(jobber_config, mocker):
 
     result = folder.create_folders(jobber_config)
 
-    assert len(result) == 10
-
     expected_folder_paths = [
         ['jobber', 'initialiser'],
         ['jobber', 'command'],
@@ -20,8 +18,10 @@ def test_creates_all_folders(jobber_config, mocker):
         ['jobber', 'repo'],
         ['tests', 'test_repo'],
         ['jobber', 'util'],
-        ['tests', 'test_util'],
-        ['tests', 'shared']]
+        ['tests', 'shared'],
+        ['tests', 'test_job'],
+        ['tests', 'test_util']
+    ]
 
     assert folder_helpers.FileManagerSpy.commands == expected_folder_paths
 
@@ -37,11 +37,16 @@ def test_build_python_templates(jobber_config, mocker):
     expected_paths = [
         ['jobber', 'di_container.py'],
         ['jobber', 'job.py'],
-        ['jobber', 'initialiser', 'a_container.py'],
+        ['jobber', 'initialiser', '__init__.py'],
+        ['jobber', 'initialiser', 'container.py'],
         ['jobber', 'repo', 'dependencies.py'],
         ['jobber', 'repo', 'db.py'],
         ['jobber', 'util', 'config.py'],
         ['jobber', 'util', 'dependencies.py'],
-        ['tests', 'shared', 'di.py']]
+        ['tests', 'shared', 'di.py'],
+        ['tests', 'shared', 'spark_test_session.py'],
+        ['tests', 'test_job', 'test_job.py'],
+        ['tests', 'test_util', 'test_secret.py'],
+        ['tests', 'test_util', 'test_session.py']]
 
     assert [f.file_path for f in cmds] == expected_paths
