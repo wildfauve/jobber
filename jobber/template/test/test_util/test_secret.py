@@ -10,8 +10,8 @@ from tests.shared import *
 
 
 def test_returns_secret(test_container):
-    secret = test_container.secrets_provider().get_secret('<name-of-key-secret>')
-    assert secret.value == "a-secret"
+    secret = test_container.secrets_provider().get_secret('<a-secret-name>')
+    assert secret.value == "<a-secret>"
     
 """
 

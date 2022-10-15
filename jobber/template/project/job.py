@@ -12,7 +12,7 @@ from {project} import initialiser
 
 @spark_job.job(initialiser_module=initialiser)
 def execute(args=None) -> monad.EitherMonad:
-    pass
+    return monad.Right(None)
 """
 
 doc = """"""
