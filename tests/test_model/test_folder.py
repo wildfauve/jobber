@@ -44,6 +44,7 @@ def test_build_python_templates(jobber_config, mocker):
         ['jobber', 'util', 'config.py'],
         ['jobber', 'util', 'dependencies.py'],
         ['tests', 'conftest.py'],
+        ['tests', 'shared', '__init__.py'],
         ['tests', 'shared', 'config_for_testing.py'],
         ['tests', 'shared', 'db_setup.py'],
         ['tests', 'shared', 'di.py'],
