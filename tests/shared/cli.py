@@ -1,5 +1,6 @@
 from jobber.util import monad, singleton
 
+
 class CliCommandSpy(singleton.Singleton):
     commands = []
 
@@ -13,9 +14,10 @@ def cli_failure_returner(_cmd):
 
 
 def cli_spy_wrapper(returner_fn=cli_success_returner):
-    def cli_spy(cmd: list, message: str = "", return_result: bool = False):
+    def cli_spy(cmd: list, message: str = "", return_result: bool = False, result_parser=None):
         CliCommandSpy().commands.append({'cmd': cmd, 'message': message})
         return returner_fn(cmd)
+
     CliCommandSpy.commands = []
     return cli_spy
 

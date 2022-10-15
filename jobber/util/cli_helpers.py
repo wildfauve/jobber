@@ -16,6 +16,8 @@ def echo(msg: Any, ctx: dict = None):
 def new_line_splitter(res):
     return res.decode('utf-8').split('\n')
 
+def as_string(res):
+    return res.decode('utf-8')
 
 def run_command(cmd: List,
                 message: str = "",

@@ -1,5 +1,5 @@
 from pathlib import Path
-from jobber.util import monad
+from jobber.util import monad, cli_helpers
 from jobber.model import library, folder, config, project, tester
 
 def build_config(domain, service, dataproduct, pyproject_location) -> monad.EitherMonad[str]:
@@ -31,5 +31,6 @@ def build_python_files_from_templates(cfg):
     return monad.Right(cfg)
 
 def run_all_tests(cfg):
-    tester.run_all_tests()
+    result = tester.run_all_tests()
+    cli_helpers.echo(msg=result)
     return cfg
