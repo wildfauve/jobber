@@ -1,6 +1,6 @@
 from pathlib import Path
 from jobber.util import monad
-from jobber.model import library, folder, config
+from jobber.model import library, folder, config, project
 
 def build_config(domain, service, dataproduct, pyproject_location) -> monad.EitherMonad[str]:
     cfg = config.config_value(domain, service, dataproduct, pyproject_location)
@@ -15,6 +15,10 @@ def add_library_dependencies(cfg):
 
     return monad.Right(results)
 
+def add_pytest_ini_to_pyproject(cfg):
+    result = project.add_pytest_ini(cfg)
+
+    return monad.Right(result)
 
 def create_folders(cfg):
     result = folder.create_folders(cfg)

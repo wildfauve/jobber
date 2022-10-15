@@ -7,7 +7,7 @@ from dependency_injector import containers, providers
 from jobsworth.repo import spark_db, hive_repo
 from jobsworth.util import session
 
-from {project}.initialisers import container
+from {project}.initialiser import container
 
 from tests.shared import spark_test_session, config_for_testing, db_setup
 
@@ -37,7 +37,7 @@ class OverridingContainer(containers.DeclarativeContainer):
 
 @pytest.fixture
 def test_container():
-    di = a_container.init_container()
+    di = container.init_container()
     over = OverridingContainer()
     over.config.from_dict(config_for_testing.config)
     di.override(over)

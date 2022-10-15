@@ -14,6 +14,7 @@ def run(domain: str, service: str, dataproduct: str, pyproject_location='pyproje
 
     result = (configure(domain, service, dataproduct, pyproject_location)
               >> install_dependencies
+              >> update_project_with_pytest
               >> create_folders
               >> build_python_files_from_templates)
 
@@ -42,6 +43,15 @@ def install_dependencies(cfg):
 
     cli_helpers.echo("Success: Create Standard Job Dependencies")
     return monad.Right(cfg)
+
+def update_project_with_pytest(cfg):
+    cli_helpers.echo("Adding pytest configure to pyproject")
+
+    actions.add_pytest_ini_to_pyproject(cfg)
+
+    cli_helpers.echo("Success: pyproject updated")
+    return monad.Right(cfg)
+
 
 def create_folders(cfg):
     cli_helpers.echo("Creating Folders")

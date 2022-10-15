@@ -3,12 +3,12 @@ import re
 from functools import reduce
 from pymonad.tools import curry
 
-from .folder_spec import root, initialiser, command, model, repo, util, shared, test_job, test_util
+from .folder_spec import root, initialiser, command, model, repo, util, test_root, shared, test_job, test_util
 from jobber.util import file_manager, fn, monad, cli_helpers
 from . import value
 
 test_folder_location = 'tests'
-layer_fns = [root, initialiser, command, model, repo, util, shared, test_job, test_util]
+layer_fns = [root, initialiser, command, model, repo, util, test_root, shared, test_job, test_util]
 
 
 def create_folders(cfg):

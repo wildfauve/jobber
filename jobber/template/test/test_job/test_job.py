@@ -5,6 +5,8 @@ import pytest
 
 from {project} import job
 
+from tests.shared import *
+
 \"""
 {doc}
 \"""

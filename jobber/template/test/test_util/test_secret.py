@@ -2,6 +2,8 @@ file_path = ["tests", "test_util", "test_secret.py"]
 
 template = """
 
+from tests.shared import *
+
 \"""
 {doc}
 \"""
