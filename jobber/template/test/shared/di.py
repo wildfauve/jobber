@@ -37,7 +37,7 @@ class OverridingContainer(containers.DeclarativeContainer):
         job_config,
         databricks.DatabricksUtilMockWrapper(
             load_secrets={{
-                f"{{config_for_testing.SECRETS_SCOPE}}": {{"<a-secret-name>": "<a-secret"}}
+                f"{{config_for_testing.SECRETS_SCOPE}}": {{"<a-secret-name>": "<a-secret>"}}
             }}
         ),
         config_for_testing.SECRETS_SCOPE)

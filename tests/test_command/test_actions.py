@@ -1,5 +1,4 @@
 from jobber.command import actions
-from jobber.util import fn
 
 from tests.shared import cli
 

@@ -16,7 +16,8 @@ def run(domain: str, service: str, dataproduct: str, pyproject_location='pyproje
               >> install_dependencies
               >> update_project_with_pytest
               >> create_folders
-              >> build_python_files_from_templates)
+              >> build_python_files_from_templates
+              >> run_tests)
 
     cli_helpers.echo("Success: Job Scaffolding Complete")
 
@@ -73,4 +74,11 @@ def build_python_files_from_templates(cfg):
     cli_helpers.echo(f"FAILURE: Some File files failed")
     return result
 
+
+def run_tests(cfg):
+    cli_helpers.echo("Running Tests")
+
+    result = actions.run_all_tests(cfg)
+
+    return monad.Right(cfg)
 
