@@ -5,7 +5,8 @@ import pytest
 
 from dependency_injector import containers, providers
 from jobsworth.repo import spark_db, hive_repo
-from jobsworth.util import session
+from jobsworth.util import session as spark_session
+from jobsworth.util import secrets, databricks
 
 from {project}.initialiser import container
 
@@ -22,7 +23,7 @@ from {project}.repo import db
 class OverridingContainer(containers.DeclarativeContainer):
     config = providers.Configuration()
 
-    session = providers.Callable(session.build_spark_session,
+    session = providers.Callable(spark_session.build_spark_session,
                                  "test_spark_session",
                                  spark_test_session.spark_delta_session,
                                  spark_test_session.spark_session_config)
