@@ -9,13 +9,17 @@ from jobsworth.util import session as spark_session
 from {project}.util import config as cfg
 from {project}.repo import db
 
+\"""
+{doc}
+\"""
+
 
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
 
-    session = providers.Callable(session.build_spark_session,
+    session = providers.Callable(spark_session.build_spark_session,
                                  "{project}_session",
-                                 session.create_session)
+                                 spark_session.create_session)
 
     job_config = providers.Callable(cfg.build_job_config)
     
@@ -28,4 +32,4 @@ class Container(containers.DeclarativeContainer):
                                  job_config)
 """
 
-
+doc = """"""

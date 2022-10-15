@@ -43,10 +43,13 @@ def test_build_python_templates(jobber_config, mocker):
         ['jobber', 'repo', 'db.py'],
         ['jobber', 'util', 'config.py'],
         ['jobber', 'util', 'dependencies.py'],
+        ['tests', 'shared', 'config_for_testing.py'],
+        ['tests', 'shared', 'db_setup.py'],
         ['tests', 'shared', 'di.py'],
         ['tests', 'shared', 'spark_test_session.py'],
         ['tests', 'test_job', 'test_job.py'],
         ['tests', 'test_util', 'test_secret.py'],
         ['tests', 'test_util', 'test_session.py']]
+
 
     assert [f.file_path for f in cmds] == expected_paths

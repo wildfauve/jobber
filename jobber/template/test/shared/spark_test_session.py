@@ -6,6 +6,10 @@ import pyspark
 import pytest
 from delta import pip_utils
 
+\"""
+{doc}
+\"""
+
 
 def create_pyspark_delta_session(session_name):
     from jobsworth.util import session
@@ -37,3 +41,5 @@ def spark_session_config(spark):
     spark.conf.set('hive.exec.dynamic.partition.mode', 'nonstrict')
 
 """
+
+doc = """"""

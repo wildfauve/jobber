@@ -4,7 +4,14 @@ template = """
 from pyspark.sql import session
 from {project}.util import dependencies
 
+\"""
+{doc}
+\"""
+
+
 def test_session_in_container(test_container):
     assert isinstance(test_container.session(), session.SparkSession)
     assert isinstance(dependencies.spark(), session.SparkSession)
 """
+
+doc = """"""

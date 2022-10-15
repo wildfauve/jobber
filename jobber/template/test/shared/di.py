@@ -1,6 +1,5 @@
 file_path = ["tests", "shared", "di.py"]
 
-
 template = """
 import pytest
 
@@ -8,11 +7,16 @@ from dependency_injector import containers, providers
 from jobsworth.repo import spark_db, hive_repo
 from jobsworth.util import session
 
-from {project}.initialisers import a_container
+from {project}.initialisers import container
 
 from tests.shared import spark_test_session, config_for_testing, db_setup
 
 from {project}.repo import db
+
+\"""
+{doc}
+\"""
+
 
 
 class OverridingContainer(containers.DeclarativeContainer):
@@ -39,3 +43,5 @@ def test_container():
     di.override(over)
     return over
 """
+
+doc = """"""

@@ -6,6 +6,10 @@ from dependency_injector.wiring import Provide, inject
 from jobsworth.util import fn
 from {project}.di_container import Container
 
+\"""
+{doc}
+\"""
+
 
 def config_for(elements: List):
     return fn.deep_get(di_config(), elements)
@@ -22,4 +26,4 @@ def spark(session=Provide[Container.session]):
 
 """
 
-
+doc = """"""

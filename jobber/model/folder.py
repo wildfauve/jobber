@@ -69,7 +69,9 @@ def format_path(cfg, fragment):
 
 
 def templater(cfg, template):
+    doc = template.doc if hasattr(template, "doc") else ""
     return re.sub('^\n', '', template.template.format(domain=cfg.domain,
                                                       service=cfg.service,
                                                       dataproduct=cfg.dataproduct,
-                                                      project=cfg.project_name()))
+                                                      project=cfg.project_name(),
+                                                      doc=doc))

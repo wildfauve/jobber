@@ -7,6 +7,11 @@ from jobsworth.util import env
 from {project} import di_container
 from {project}.util import config
 
+\"""
+{doc}
+\"""
+
+
 mods = ['{project}.util.dependencies',
         '{project}.repo.dependencies']
 
@@ -23,3 +28,6 @@ def init_container():
     return di
 
 """
+
+
+doc = """"""

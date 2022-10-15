@@ -5,10 +5,15 @@ import pytest
 
 from {project} import job
 
+\"""
+{doc}
+\"""
+
 
 def test_job_completes_successfully(test_container, init_db):
     result = job.execute()
 
-    assert result.is_right()
-    
+    assert result.is_right()    
 """
+
+doc = """"""
