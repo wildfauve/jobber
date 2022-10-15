@@ -1,7 +1,7 @@
 import click
 
 
-from jobber.command import new_job
+from jobber.command import new_job as new_job_command
 
 
 @click.group()
@@ -20,7 +20,7 @@ def new_job(domain, service, dataproduct):
     """
     Scaffolds a new job project.  The project name comes from the pyproject.toml tool.poetry.name key
     """
-    new_job.run(domain, service, dataproduct)
+    new_job_command.run(domain, service, dataproduct)
     pass
 
 
