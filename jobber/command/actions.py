@@ -3,7 +3,7 @@ from jobber.util import monad
 from jobber.model import library, folder, config
 
 def build_config(domain, service, dataproduct, pyproject_location) -> monad.EitherMonad[str]:
-    cfg = config.config_value(pyproject_location)
+    cfg = config.config_value(domain, service, dataproduct, pyproject_location)
     project_root = config.project_name(cfg)
     if project_root and Path(project_root).exists():
         return monad.Right(cfg)
