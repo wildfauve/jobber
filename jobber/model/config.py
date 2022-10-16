@@ -13,17 +13,19 @@ class Config(value.DataClassAbstract):
     service: str
     dataproduct: str
     pyproject_location: str
+    overwrite: bool
     pyproject_toml: Dict = None
 
     def project_name(self):
         return fn.deep_get(self.pyproject_toml, ['tool', 'poetry', 'name'])
 
 
-def config_value(domain, service, dataproduct, pyproject="pyproject.toml") -> Config:
+def config_value(domain, service, dataproduct, pyproject="pyproject.toml", overwrite=False) -> Config:
     return add_project_toml(Config(domain=domain,
                                    service=service,
                                    dataproduct=dataproduct,
-                                   pyproject_location=pyproject))
+                                   pyproject_location=pyproject,
+                                   overwrite=overwrite))
 
 
 def project_name(cfg):

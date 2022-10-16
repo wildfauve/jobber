@@ -16,11 +16,12 @@ def cli():
               help="The name of the service the job is attached to.")
 @click.option("--dataproduct", "-p", required=True,
               help="The name of the data product served by the job")
-def new_job(domain, service, dataproduct):
+@click.option('--overwrite/--no-overwrite', default=False)
+def new_job(domain, service, dataproduct, overwrite):
     """
     Scaffolds a new job project.  The project name comes from the pyproject.toml tool.poetry.name key
     """
-    new_job_command.run(domain, service, dataproduct)
+    new_job_command.run(domain, service, dataproduct, overwrite)
     pass
 
 
