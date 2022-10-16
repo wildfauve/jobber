@@ -91,3 +91,44 @@ tests/test_util/test_session.py::test_session_in_container PASSED        [100%]
 
 ============================== 3 passed in 5.08s ===============================
 ```
+
+The resulting folder structure is as follows:
+
+```shell
+.
+├── README.md
+├── dir.txt
+├── poetry.lock
+├── pyproject.toml
+├── my_project
+│   ├── __init__.py
+│   ├── command
+│   ├── di_container.py
+│   ├── initialiser
+│   │   ├── __init__.py
+│   │   └── container.py
+│   ├── job.py
+│   ├── model
+│   ├── repo
+│   │   ├── db.py
+│   │   └── dependencies.py
+│   └── util
+│       ├── config.py
+│       └── dependencies.py
+└── tests
+    ├── conftest.py
+    ├── shared
+    │   ├── __init__.py
+    │   ├── config_for_testing.py
+    │   ├── db_setup.py
+    │   ├── di.py
+    │   └── spark_test_session.py
+    ├── test_command
+    ├── test_job
+    │   └── test_job.py
+    ├── test_model
+    ├── test_repo
+    └── test_util
+        ├── test_secret.py
+        └── test_session.py
+```
