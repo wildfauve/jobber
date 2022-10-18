@@ -9,8 +9,8 @@ from jobber.util import cli_helpers, monad, error, env
 def run(domain: str,
         service: str,
         dataproduct: str,
-        pyproject_location: str = 'pyproject.toml',
-        overwrite: bool = False):
+        overwrite: bool = False,
+        pyproject_location: str = 'pyproject.toml'):
     """
     Scaffolds a new job project
     """
