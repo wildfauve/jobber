@@ -1,13 +1,10 @@
 from typing import Dict
-import re
 from dataclasses import dataclass
 import tomli
 from pathlib import Path
 
 from jobber.util import fn
 from jobber.model import value
-
-normalise_pattern = pattern = re.compile(r'(?<!^)(?=[A-Z])')
 
 
 @dataclass
@@ -23,12 +20,10 @@ class Config(value.DataClassAbstract):
         return fn.deep_get(self.pyproject_toml, ['tool', 'poetry', 'name'])
 
     def project_location(self):
-        return self.normalise(self.project_name())
-
-    def normalise(self, token):
-        if not token:
-            return token
-        return normalise_pattern.sub('_', token).lower()
+        packages = fn.deep_get(self.pyproject_toml, ['tool', 'poetry', 'packages'])
+        if not packages or len(packages) != 1:
+            return None
+        return packages[0].get('include', None)
 
 
 def config_value(domain, service, dataproduct, pyproject="pyproject.toml", overwrite=False) -> Config:

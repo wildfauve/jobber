@@ -12,7 +12,9 @@ def pyproject_to_cfg(cfg):
     project_root = config.project_location(cfg)
     if project_root and Path(project_root).exists():
         return monad.Right(cfg)
-    return monad.Left(f"Project Root: {project_root} not found.  Check pyproject.toml configuration")
+    return monad.Left(f"""Project Root: {project_root} not found.  Check pyproject.toml configuration.
+    + pyproject.toml must include the root package in [tool.poetry.packages]
+    """)
 
     return config.add_project_toml(cfg)
 
