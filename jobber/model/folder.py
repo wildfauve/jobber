@@ -25,7 +25,7 @@ def folder_locations_for_layer(cfg, list_of_folders, layer):
 
 
 def main_folder(cfg, layer):
-    return [cfg.project_name()] + layer.location if hasattr(layer, 'location') else None
+    return [cfg.project_location()] + layer.location if hasattr(layer, 'location') else None
 
 
 def test_folder(cfg, layer):
@@ -65,7 +65,7 @@ def apply_path_template(cfg, path: List):
 
 @curry(2)
 def format_path(cfg, fragment):
-    return fragment.format(project=cfg.project_name())
+    return fragment.format(project=cfg.project_location())
 
 
 def templater(cfg, template):
