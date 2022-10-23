@@ -4,11 +4,17 @@ from jobber.model import library, folder, config, project, tester
 
 def build_config(domain, service, dataproduct, pyproject_location, overwrite) -> monad.EitherMonad[str]:
     cfg = config.config_value(domain, service, dataproduct, pyproject_location, overwrite)
-    project_root = config.project_name(cfg)
+    return monad.Right(cfg)
+
+
+def pyproject_to_cfg(cfg):
+    config.add_project_toml_to_cfg(cfg)
+    project_root = config.project_location(cfg)
     if project_root and Path(project_root).exists():
         return monad.Right(cfg)
     return monad.Left(f"Project Root: {project_root} not found.  Check pyproject.toml configuration")
 
+    return config.add_project_toml(cfg)
 
 def add_library_dependencies(cfg):
     results = list(map(lambda dep: library.add_dependency(dep), library.deps))
@@ -16,6 +22,13 @@ def add_library_dependencies(cfg):
     return monad.Right(results)
 
 def add_pytest_ini_to_pyproject(cfg):
+    """
+    As we've updated the pyproject.toml file when installing dependencies, we re-read it into cfg
+    before updating it with the pytest config.
+    :param cfg:
+    :return:
+    """
+    pyproject_to_cfg(cfg)
     result = project.add_pytest_ini(cfg)
 
     return monad.Right(result)

@@ -17,6 +17,7 @@ def run(domain: str,
     cli_helpers.echo(f"Scaffolding job for project")
 
     result = (configure(domain, service, dataproduct, pyproject_location, overwrite)
+              >> read_pyproject
               >> install_dependencies
               >> update_project_with_pytest
               >> create_folders
@@ -32,13 +33,17 @@ def run(domain: str,
     sys.exit(0)
 
 def configure(domain, service, dataproduct, pyproject_location, overwrite):
-    result = actions.build_config(domain, service, dataproduct, pyproject_location, overwrite)
+    return  actions.build_config(domain, service, dataproduct, pyproject_location, overwrite)
+
+def read_pyproject(cfg):
+    result = actions.pyproject_to_cfg(cfg)
     if result.is_right():
         cli_helpers.echo(f"SUCCESS: Build project at location {config.project_name(result.value)}")
         return result
 
     cli_helpers.echo(f"FAILURE: Project configuration failure")
-    return result
+
+
 
 
 def install_dependencies(cfg):
