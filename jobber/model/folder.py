@@ -73,5 +73,5 @@ def templater(cfg, template):
     return re.sub('^\n', '', template.template.format(domain=cfg.domain,
                                                       service=cfg.service,
                                                       dataproduct=cfg.dataproduct,
-                                                      project=cfg.project_name(),
+                                                      project=cfg.project_location(),
                                                       doc=doc))
