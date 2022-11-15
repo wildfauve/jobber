@@ -1,7 +1,7 @@
 file_path = ["{project}", "repo", "db.py"]
 
 template = """
-from jobsworth import repo
+from jobsworthy import repo
 
 \"""
 {doc}
