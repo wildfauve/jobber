@@ -20,7 +20,7 @@ COSMOS_ENDPOINT = '<cosmos_db_endpoint>'
 COSMOS_DB_NAME = '<cosmos_db_name>'
 COSMOS_CONTAINER_NAME = '<cosmos_container_name>'
 SECRETS_SCOPE = '<secret_scope>' # delete if you want the default: <domain>.<service>.<env>
-DB_FILE_SYSTEM_PATH_ROOT = f\"/domains/{DOMAIN_NAME}/data_products/{DATA_PRODUCT_NAME}\"
+DB_FILE_SYSTEM_PATH_ROOT = '/domains/{domain}/data_products/{dataproduct}'
 
 
 
