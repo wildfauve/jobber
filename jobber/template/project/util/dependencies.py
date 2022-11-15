@@ -21,6 +21,11 @@ def di_config(cfg=Provide[Container.config]):
 
 
 @inject
+def job_config(cfg=Provide[Container.job_config]):
+    return cfg
+
+
+@inject
 def spark(session=Provide[Container.session]):
     return session
 

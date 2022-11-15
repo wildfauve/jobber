@@ -1,7 +1,7 @@
 from jobber.util import cli_helpers
 
 deps = [
-    ("git+https://github.com/wildfauve/jobsworth#main", 'project'),
+    ("jobsworthy", 'project'),
     ("dependency-injector", "project"),
     ("pyspark", "project"),
     ("delta-spark", "project"),
