@@ -12,7 +12,7 @@ from delta import pip_utils
 
 
 def create_pyspark_delta_session(session_name):
-    from jobsworth.util import session
+    from jobsworthy.util import session
 
     session.build_spark_session(
         session_name=session_name,

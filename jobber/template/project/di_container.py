@@ -2,9 +2,9 @@ file_path = ["{project}", "di_container.py"]
 
 template = """
 from dependency_injector import containers, providers
-from jobsworth.repo import cosmos_repo, hive_repo, spark_db
-from jobsworth.util import databricks, secrets
-from jobsworth.util import session as spark_session
+from jobsworthy import repo
+from jobsworthy.util import databricks, secrets
+from jobsworthy.util import session as spark_session
 
 from {project}.util import config as cfg
 from {project}.repo import db
@@ -27,7 +27,7 @@ class Container(containers.DeclarativeContainer):
         secrets.Secrets, session, job_config, databricks.DatabricksUtilsWrapper(), cfg.SECRETS_SCOPE
     )
 
-    database = providers.Factory(spark_db.Db,
+    database = providers.Factory(repo.Db,
                                  session,
                                  job_config)
 """

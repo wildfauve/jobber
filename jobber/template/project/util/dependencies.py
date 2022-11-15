@@ -3,7 +3,7 @@ file_path = ["{project}", "util", "dependencies.py"]
 template = """
 from typing import List
 from dependency_injector.wiring import Provide, inject
-from jobsworth.util import fn
+from jobsworthy.util import fn
 from {project}.di_container import Container
 
 \"""

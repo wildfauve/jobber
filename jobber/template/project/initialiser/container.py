@@ -1,8 +1,8 @@
 file_path = ["{project}", "initialiser", "container.py"]
 
 template = """
-from jobsworth import spark_job
-from jobsworth.util import env
+from jobsworthy import spark_job
+from jobsworthy.util import env
 
 from {project} import di_container
 from {project}.util import config

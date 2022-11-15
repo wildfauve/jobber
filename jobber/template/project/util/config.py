@@ -1,8 +1,8 @@
 file_path = ["{project}", "util", "config.py"]
 
 template = """
-from jobsworth import config as job_config
-from jobsworth.util import env
+from jobsworthy import spark_job
+from jobsworthy.util import env
 
 \"""
 {doc}
@@ -29,9 +29,9 @@ config = {{
 
 
 def build_job_config():
-    return (job_config.JobConfig(domain_name=DOMAIN_NAME,
-                                 service_name=SERVICE_NAME,
-                                 data_product_name=DATA_PRODUCT_NAME)
+    return (spark_job.JobConfig(domain_name=DOMAIN_NAME,
+                                service_name=SERVICE_NAME,
+                                data_product_name=DATA_PRODUCT_NAME)
             .configure_hive_db(db_name=DATABASE_NAME)
             .configure_cosmos_db(account_key_name=COSMOS_ACCOUNT_KEY,
                                 endpoint=COSMOS_ENDPOINT,
@@ -41,4 +41,3 @@ def build_job_config():
 """
 
 doc = """"""
-

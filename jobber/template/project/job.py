@@ -1,8 +1,8 @@
 file_path = ["{project}", "job.py"]
 
 template = """
-from jobsworth import spark_job
-from jobsworth.util import monad, logger, env
+from jobsworthy import spark_job
+from jobsworthy.util import monad, logger, env
 from {project} import initialiser
 
 \"""

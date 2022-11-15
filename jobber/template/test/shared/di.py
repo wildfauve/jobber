@@ -4,9 +4,9 @@ template = """
 import pytest
 
 from dependency_injector import containers, providers
-from jobsworth.repo import spark_db, hive_repo
-from jobsworth.util import session as spark_session
-from jobsworth.util import secrets, databricks
+from jobsworthy import repo
+from jobsworthy.util import session as spark_session
+from jobsworthy.util import secrets, databricks
 
 from {project}.initialiser import container
 
@@ -45,7 +45,7 @@ class OverridingContainer(containers.DeclarativeContainer):
     
     
 
-    database = providers.Factory(spark_db.Db,
+    database = providers.Factory(repo.Db,
                                  session,
                                  job_config)
 

@@ -2,8 +2,8 @@ file_path = ["tests", "shared", "config_for_testing.py"]
 
 
 template = """
-from jobsworth import config as cfg
-from jobsworth.util import env
+from jobsworthy import spark_job
+from jobsworthy.util import env
 
 \"""
 {doc}
@@ -31,7 +31,7 @@ config = {{"env": env.Env().env}}
 
 def build_job_config():
     return (
-        cfg.JobConfig(
+        spark_job.JobConfig(
             data_product_name=DATA_PRODUCT_NAME,
             domain_name=DOMAIN_NAME,
             service_name=SERVICE_NAME,
