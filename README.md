@@ -46,7 +46,7 @@ Finally, run the `new-job` command.  Provide the following options:
 These options will help define conventions for database names and dbfs file locations, as well as secret scopes.
 
 ```shell
- poetry run jobber new-job --domain my_domain --service my_service --dataproduct my_dp
+poetry run jobber new-job --domain my_domain --service my_service --dataproduct my_dp
 ```
 
 Expect the following output.

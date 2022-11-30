@@ -22,9 +22,6 @@ COSMOS_DB_NAME = '<cosmos_db_name>'
 COSMOS_CONTAINER_NAME = '<cosmos_container_name>'
 SECRETS_SCOPE = '<secret_scope>'  # delete if you want the default: <domain>.<service>.<env>
 
-DB_FILE_SYSTEM_PATH_ROOT = 'domains/{domain}/data_products/{dataproduct}'
-CHECKPOINT_OVERRIDE = 'spark-warehouse/domains/{domain}/data_products/{dataproduct}'
-
 
 config = {{"env": env.Env().env}}
 
@@ -38,13 +35,12 @@ def build_job_config():
         )
         .configure_hive_db(
             db_name=DATABASE_NAME,
-            db_file_system_path_root=DB_FILE_SYSTEM_PATH_ROOT,
-            db_path_override_for_checkpoint=CHECKPOINT_OVERRIDE,
         )
         .configure_cosmos_db(account_key_name=COSMOS_ACCOUNT_KEY,
                                 endpoint=COSMOS_ENDPOINT,
                                 db_name=COSMOS_DB_NAME,
-                                container_name=COSMOS_CONTAINER_NAME))
+                                container_name=COSMOS_CONTAINER_NAME)
+        .running_in_test())
 """
 
 doc = """"""

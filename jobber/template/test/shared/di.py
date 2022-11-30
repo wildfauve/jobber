@@ -47,7 +47,8 @@ class OverridingContainer(containers.DeclarativeContainer):
 
     database = providers.Factory(repo.Db,
                                  session,
-                                 job_config)
+                                 job_config,
+                                 repo.DbNamingConventionDomainBased)
 
 
 @pytest.fixture
@@ -59,4 +60,5 @@ def test_container():
     return over
 """
 
-doc = """"""
+doc = """
+"""

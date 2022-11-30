@@ -29,7 +29,8 @@ class Container(containers.DeclarativeContainer):
 
     database = providers.Factory(repo.Db,
                                  session,
-                                 job_config)
+                                 job_config,
+                                 repo.DbNamingConventionDomainBased)
 """
 
 doc = """"""
