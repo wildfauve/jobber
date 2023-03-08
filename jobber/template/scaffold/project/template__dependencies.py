@@ -1,4 +1,4 @@
-file_path = ["{project}", "repo", "dependencies.py"]
+file_path = ["{project}", "dependencies.py"]
 
 template = """
 from dependency_injector.wiring import Provide, inject
@@ -10,11 +10,7 @@ from {project}.di_container import Container
 
 
 from dependency_injector.wiring import Provide, inject
-from held_instrument_builder.di_container import Container
-
-"""
-
-"""
+from {project}.di_container import Container
 
 @inject
 def table_model(table=Provide[Container.project_repo_table_model]):

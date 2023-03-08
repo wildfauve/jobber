@@ -5,7 +5,7 @@ import shutil
 
 import pytest
 
-from {project}.repo import dependencies as repo_deps
+from {project} import dependencies as deps
 
 \"""
 {doc}

@@ -37,18 +37,15 @@ def test_build_python_templates(jobber_new_job_config, mocker):
 
     cmds = folder_helpers.FileManagerSpy.commands
 
-    expected_paths = {('jobber', 'initialiser', '__init__.py'), ('tests', 'test_util', 'test_secret.py'),
-                      ('jobber', 'util', 'config.py'), ('tests', 'shared', 'di.py'), ('tests', 'conftest.py'),
-                      ('tests', 'shared', 'spark_test_session.py'), ('tests', 'shared', 'db_setup.py'),
-                      ('jobber', 'repo', 'vocab.py'), ('jobber', 'initialiser', 'container.py'),
-                      ('jobber', 'repo', 'dependencies.py'), ('jobber', 'repo', 'db.py'),
-                      ('tests', 'test_util', 'test_session.py'), ('jobber', 'repo', 'schema.py'),
-                      ('jobber', 'repo', '__init__.py'), ('tests', 'shared', '__init__.py'),
-                      ('tests', 'test_job', 'test_job.py'), ('tests', 'shared', 'config_for_testing.py'),
-                      ('jobber', 'di_container.py')}
+    expected_paths = {('tests', 'test_job', 'test_job.py'), ('jobber', 'initialiser', 'container.py'),
+                      ('jobber', 'dependencies.py'), ('jobber', 'di_container.py'), ('tests', 'shared', 'db_setup.py'),
+                      ('tests', 'shared', 'di.py'), ('jobber', 'util', 'config.py'), ('tests', 'conftest.py'),
+                      ('jobber', 'initialiser', '__init__.py'), ('jobber', 'repo', 'vocab.py'),
+                      ('tests', 'shared', 'spark_test_session.py'), ('tests', 'test_util', 'test_session.py'),
+                      ('tests', 'shared', '__init__.py'), ('jobber', 'repo', 'db.py'), ('jobber', 'repo', 'schema.py'),
+                      ('tests', 'shared', 'config_for_testing.py'), ('jobber', 'repo', '__init__.py'),
+                      ('tests', 'test_util', 'test_secret.py')}
 
     assert {r.value[0].parts for r in result} == expected_paths
 
     assert {Path(*c.file_path).parts for c in cmds} == expected_paths
-
-
