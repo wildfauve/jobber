@@ -1,77 +1,101 @@
 from typing import List
 import re
-from functools import reduce
+from functools import reduce, partial
 from pymonad.tools import curry
+from pathlib import Path
+from importlib import import_module
 
-from .folder_spec import root, initialiser, command, model, repo, util, test_root, shared, test_job, test_util
+from . import folder_spec, scaffold_template_imports, file_handler, config
 from jobber.util import file_manager, fn, monad, cli_helpers
 from . import value
 
+scaffold_template_path = Path(".") / "jobber" / "template" / "scaffold"
 test_folder_location = 'tests'
-layer_fns = [root, initialiser, command, model, repo, util, test_root, shared, test_job, test_util]
+template_pattern = "**/template__*.py"
+
+
+def build_template_locations(location):
+    file = generate_imports_file(list(map(template_to_import_path, scaffold_template_path.glob(template_pattern))))
+    return file_manager.write_file(file_object=value.FileTemplate(file_path=Path(location), rendered_template=file))
+
+
+def generate_imports_file(files):
+    file_strs = ",\n    ".join([f"'{file}'" for file in files])
+    imports_module = f"""
+templates = [
+    {file_strs}
+]      
+    """
+    return imports_module
+
+
+def template_to_import_path(path):
+    return ".".join(path.parts).replace('.py', '')
 
 
 def create_folders(cfg):
-    return list(map(create_folder, reduce(folder_locations_for_layer(cfg), layer_fns, [])))
+    return list(map(create_folder, folder_locations(cfg)))
+
+
+def folder_locations(cfg):
+    return reduce(partial(folder_locations_for_layer, cfg), folder_spec.folders.items(), [])
 
 
 def build_python_templates(cfg):
-    return list(map(create_python_files, reduce(template_locations(cfg), layer_fns, [])))
+    return list(map(file_handler.create_python_files, template_locations(cfg)))
 
 
-@curry(3)
+def template_locations(cfg):
+    return reduce(partial(build_template_locations, cfg), scaffold_template_imports.templates, [])
+
+
+def folder_locations(cfg):
+    return reduce(partial(folder_locations_for_layer, cfg), folder_spec.folders.items(), [])
+
+
 def folder_locations_for_layer(cfg, list_of_folders, layer):
     return list_of_folders + fn.remove_none([main_folder(cfg, layer)] + [test_folder(cfg, layer)])
 
 
 def main_folder(cfg, layer):
-    return [cfg.project_location()] + layer.location if hasattr(layer, 'location') else None
+    layer_name, layer_def = layer
+    if not layer_def.get('location', None):
+        return None
+    return [cfg.config_base.project_location()] + layer_def.get('location')
 
 
 def test_folder(cfg, layer):
-    return [test_folder_location] + layer.test_location if hasattr(layer, 'test_location') else None
+    layer_name, layer_def = layer
+    if not layer_def.get('test_location', None):
+        return None
+    return [test_folder_location] + layer_def.get('test_location', [])
 
 
-def create_folder(path):
+def create_folder(path: List[str]):
     return file_manager.create_folder(path)
 
 
-@curry(3)
-def template_locations(cfg, list_of_templates, layer):
-    templates_for_layer = templates(cfg, layer)
-    return list_of_templates + templates_for_layer if templates_for_layer else list_of_templates
+def build_template_locations(cfg, list_of_templates, layer):
+    template_module = import_module(layer)
+    if not template_module.template or not template_module.file_path:
+        breakpoint()
+
+    template_for_layer = file_handler.file_object(cfg,
+                                                  template_module,
+                                                  path_args(cfg),
+                                                  template_args(cfg, template_module.doc))
+    return list_of_templates + [template_for_layer]
 
 
-def templates(cfg, layer):
-    if not hasattr(layer, 'templates'):
-        return None
-    return list(map(file_object(cfg), layer.templates))
+def path_args(cfg):
+    return {'project': config.project_location(cfg)}
 
 
-@curry(2)
-def file_object(cfg, template) -> value.FileTemplate:
-    return value.FileTemplate(file_path=apply_path_template(cfg, template.file_path),
-                              rendered_template=templater(cfg, template))
-
-
-def create_python_files(file_object: value.FileTemplate) -> monad.EitherMonad:
-    cli_helpers.echo(f"Creating Python file: {'.'.join(file_object.file_path)}")
-    return file_manager.write_file(file_object)
-
-
-def apply_path_template(cfg, path: List):
-    return list(map(format_path(cfg), path))
-
-
-@curry(2)
-def format_path(cfg, fragment):
-    return fragment.format(project=cfg.project_location())
-
-
-def templater(cfg, template):
-    doc = template.doc if hasattr(template, "doc") else ""
-    return re.sub('^\n', '', template.template.format(domain=cfg.domain,
-                                                      service=cfg.service,
-                                                      dataproduct=cfg.dataproduct,
-                                                      project=cfg.project_location(),
-                                                      doc=doc))
+def template_args(cfg, doc):
+    return {'domain': cfg.domain,
+            'service': cfg.service,
+            'dataproduct': cfg.dataproduct,
+            'project': config.project_location(cfg),
+            'doc': doc}
+    
+    

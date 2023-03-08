@@ -2,14 +2,14 @@ import tomli_w
 
 
 def add_pytest_ini(cfg):
-    if has_pytest_configured(cfg.pyproject_toml):
+    if has_pytest_configured(cfg.config_base.pyproject_toml):
         return cfg
     return update_pyproject_with_pytest(cfg)
 
 
 def update_pyproject_with_pytest(cfg):
-    cfg.pyproject_toml['tool']['pytest'] = pytest_ini_opt()
-    write_pyproject_toml(cfg.pyproject_location, cfg.pyproject_toml)
+    cfg.config_base.pyproject_toml['tool']['pytest'] = pytest_ini_opt()
+    write_pyproject_toml(cfg.config_base.pyproject_location, cfg.config_base.pyproject_toml)
     return cfg
 
 

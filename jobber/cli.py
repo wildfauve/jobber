@@ -25,4 +25,13 @@ def new_job(domain, service, dataproduct, overwrite):
     pass
 
 
+@click.command()
+@click.option("--table", "-t", required=True,
+              help="The name of the table to create")
+def new_table(table):
+    """
+    Create a new table
+    """
+
 cli.add_command(new_job)
+cli.add_command(new_table)

@@ -17,7 +17,6 @@ def run(domain: str,
     cli_helpers.echo(f"Scaffolding job for project")
 
     result = (configure(domain, service, dataproduct, pyproject_location, overwrite)
-              >> read_pyproject
               >> install_dependencies
               >> update_project_with_pytest
               >> create_folders
@@ -32,18 +31,9 @@ def run(domain: str,
         sys.exit(1)
     sys.exit(0)
 
+
 def configure(domain, service, dataproduct, pyproject_location, overwrite):
-    return  actions.build_config(domain, service, dataproduct, pyproject_location, overwrite)
-
-def read_pyproject(cfg):
-    result = actions.pyproject_to_cfg(cfg)
-    if result.is_right():
-        cli_helpers.echo(f"SUCCESS: Build project at location {config.project_name(result.value)}")
-        return result
-
-    cli_helpers.echo(f"FAILURE: Project configuration failure")
-
-
+    return actions.build_new_job_config(domain, service, dataproduct, pyproject_location, overwrite)
 
 
 def install_dependencies(cfg):
@@ -53,6 +43,7 @@ def install_dependencies(cfg):
 
     cli_helpers.echo("Success: Create Standard Job Dependencies")
     return monad.Right(cfg)
+
 
 def update_project_with_pytest(cfg):
     cli_helpers.echo("Adding pytest configure to pyproject")
@@ -70,6 +61,7 @@ def create_folders(cfg):
 
     cli_helpers.echo("Success: Create Folders")
     return monad.Right(cfg)
+
 
 def build_python_files_from_templates(cfg):
     cli_helpers.echo("Building Python Files")
@@ -90,4 +82,3 @@ def run_tests(cfg):
     result = actions.run_all_tests(cfg)
 
     return monad.Right(cfg)
-

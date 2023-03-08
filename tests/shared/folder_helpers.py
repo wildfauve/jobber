@@ -1,3 +1,4 @@
+from pathlib import Path
 from jobber.util import monad, singleton
 
 
@@ -7,13 +8,15 @@ class FileManagerSpy:
     def __init__(self):
         self.__class__.commands = []
 
-    def create_folder(self, path):
+    def create_folder(self, path_components):
+        path = Path(*path_components)
         self.__class__.commands.append(path)
-        return None
+        return path
 
     def write_file(self, file_object):
         self.__class__.commands.append(file_object)
-        return monad.Right(len(file_object.rendered_template))
+        path = file_object.file_path if isinstance(file_object.file_path, Path) else Path(*file_object.file_path)
+        return monad.Right((path, len(file_object.rendered_template)))
 
 
 def file_manager_spy(mock_fn):
