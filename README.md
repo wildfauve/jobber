@@ -35,7 +35,7 @@ jobber = "jobber.cli:cli"
 Ensure that the `[tools.poetry]` section of the pyproject.toml contains a `packages` section containing the name of the folder containing the source.  For example, for jobber itself this looks like this:
 
 ```toml
-packages = [{include = "jobber"}]
+packages = [{include = "<name-of-source-root>"}]
 ```
 
 Finally, run the `new-job` command.  Provide the following options:
