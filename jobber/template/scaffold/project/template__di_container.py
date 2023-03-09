@@ -26,13 +26,15 @@ class Container(containers.DeclarativeContainer):
     secrets_provider = providers.Factory(
         secrets.Secrets, session, job_config, databricks.DatabricksUtilsWrapper(), cfg.SECRETS_SCOPE
     )
+    
+    project_repo_table_model = providers.Callable(repo.table_factory)
 
     database = providers.Factory(repo.ProjectDb,
                                  session,
                                  job_config,
                                  jwrepo.DbNamingConventionDomainBased)
                                  
-    project_repo = providers.Singleton(repo.HeldInstrument,
+    project_repo = providers.Singleton(repo.ProjectRepo,
                                        database,  # database
                                        jwrepo.HiveTableReader,  # reader
                                        jwrepo.DeltaTableReader,  # delta_table_reader

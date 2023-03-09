@@ -28,7 +28,7 @@ def build_new_table_config(table_type,
 
 
 def build_table(cfg):
-    return monad.Right(table.build(cfg))
+    return table.build(cfg)
 
 
 

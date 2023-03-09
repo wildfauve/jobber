@@ -41,10 +41,9 @@ class OverridingContainer(containers.DeclarativeContainer):
             }}
         ),
         config_for_testing.SECRETS_SCOPE)
-
+        
+    project_repo_table_model = providers.Callable(repo.table_factory)
     
-    
-
     database = providers.Factory(repo.ProjectDb,
                                  session,
                                  job_config,

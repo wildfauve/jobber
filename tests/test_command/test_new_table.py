@@ -16,4 +16,6 @@ def test_creates_new_table(mocker):
 
     assert result.is_right()
 
-    assert result.value.file_path == ['jobber', 'repo', 'my_table.py']
+    path, size = result.value
+
+    assert path.parts == ('jobber', 'repo', 'my_table.py')

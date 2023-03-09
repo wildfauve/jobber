@@ -46,7 +46,7 @@ def build_python_templates(cfg):
 
 
 def template_locations(cfg):
-    return reduce(partial(build_template_locations, cfg), scaffold_template_imports.templates, [])
+    return reduce(partial(template_location_mapper, cfg), scaffold_template_imports.templates, [])
 
 
 def folder_locations(cfg):
@@ -75,7 +75,7 @@ def create_folder(path: List[str]):
     return file_manager.create_folder(path)
 
 
-def build_template_locations(cfg, list_of_templates, layer):
+def template_location_mapper(cfg, list_of_templates, layer):
     template_module = import_module(layer)
     if not template_module.template or not template_module.file_path:
         breakpoint()
@@ -84,6 +84,9 @@ def build_template_locations(cfg, list_of_templates, layer):
                                                   template_module,
                                                   path_args(cfg),
                                                   template_args(cfg, template_module.doc))
+    if not all(template_for_layer.file_path) or not template_for_layer.rendered_template:
+        cli_helpers.echo(f"Failure: Can't write to layer {layer}")
+        return list_of_templates
     return list_of_templates + [template_for_layer]
 
 

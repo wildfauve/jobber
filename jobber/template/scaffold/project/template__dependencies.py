@@ -27,10 +27,6 @@ def project_repo(repo=Provide[Container.project_repo]):
     return repo
 
 
-@inject
-def project_performance_repo(repo=Provide[Container.project_performance_repo]):
-    return repo
-
 
 @inject
 def di_config(cfg=Provide[Container.config]):

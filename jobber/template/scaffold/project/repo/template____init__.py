@@ -2,6 +2,7 @@ file_path = ["{project}", "repo", "__init__.py"]
 
 template = """
 from .db import (
+    projectDb,
     ProjectRepo
 )
 

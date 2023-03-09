@@ -8,8 +8,7 @@ def build(cfg):
                                         template_for_table_type(cfg),
                                         path_args(cfg),
                                         template_args(cfg))
-    file_handler.create_python_files(file_obj)
-    return file_obj
+    return file_handler.create_python_files(file_obj)
 
 
 def template_for_table_type(cfg):

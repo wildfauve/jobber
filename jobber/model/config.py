@@ -64,7 +64,7 @@ def build_new_table_config(table_type,
                     cls_name=cls_name,
                     managed=managed,
                     prop_prefix=prop_prefix,
-                    config_base=config_base(pyproject_location))
+                    config_base=config_base(pyproject_location, True))
 
 
 def project_name(cfg):

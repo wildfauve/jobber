@@ -20,7 +20,10 @@ def run(table_type,
     result = (configure(table_type, table_name, cls_name, managed, prop_prefix, pyproject_location)
               >> build_table)
 
-    cli_helpers.echo("Success: Create Table Complete")
+    if result.is_left():
+        cli_helpers.echo("FAILURE: Create Table Complete")
+    else:
+        cli_helpers.echo("SUCCESS: Create Table Complete")
 
     if env.Env().env == "test":
         return result
@@ -49,4 +52,4 @@ def build_table(cfg):
         cli_helpers.echo(f"SUCCESS: Build Table {cfg.table_name}")
         return result
 
-    cli_helpers.echo(f"FAILURE: Project configuration failure")
+    return result

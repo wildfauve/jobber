@@ -1,4 +1,3 @@
-
 templates = [
     'jobber.template.scaffold.test.template__conftest',
     'jobber.template.scaffold.test.shared.template____init__',
@@ -13,11 +12,11 @@ templates = [
     'jobber.template.scaffold.project.template__dependencies',
     'jobber.template.scaffold.project.util.template__config',
     'jobber.template.scaffold.project.initialiser.template__container',
+    'jobber.template.scaffold.project.initialiser.template__observer_initialiser',
     'jobber.template.scaffold.project.initialiser.template____init__',
     'jobber.template.scaffold.project.repo.template____init__',
     'jobber.template.scaffold.project.repo.template__table',
     'jobber.template.scaffold.project.repo.template__db',
     'jobber.template.scaffold.project.repo.template__schema',
     'jobber.template.scaffold.project.repo.template__vocab'
-]      
-    
+]

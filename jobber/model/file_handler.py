@@ -2,7 +2,7 @@ from typing import List
 import re
 from functools import partial
 from . import value, config
-from jobber.util import file_manager, fn, monad, cli_helpers
+from jobber.util import file_manager, fn, monad, cli_helpers, error
 
 
 # curried
@@ -13,7 +13,12 @@ def file_object(cfg, template_module, path_args, template_args) -> value.FileTem
 
 def create_python_files(file_object: value.FileTemplate) -> monad.EitherMonad:
     cli_helpers.echo(f"Creating Python file: {'.'.join(file_object.file_path)}")
-    return file_manager.write_file(file_object)
+    result = file_manager.write_file(file_object)
+    if result.is_left():
+        cli_helpers.echo(f"Failure: Creating Python file: {'.'.join(file_object.file_path)} with error: {result.error().message}")
+        return result
+    cli_helpers.echo(f"Creating Python file: {'.'.join(file_object.file_path)}")
+    return result
 
 
 def apply_path_template(cfg, path: List, arg_dict):
@@ -21,6 +26,15 @@ def apply_path_template(cfg, path: List, arg_dict):
 
 
 def format_path(cfg, arg_dict, fragment):
+    result = try_format(cfg, arg_dict, fragment)
+    if result.is_left():
+        cli_helpers.echo(f"Failure: Formatting Path: Found {result.error().message} for frgment {fragment}")
+        return None
+    return result.value
+
+
+@monad.monadic_try(error_cls=error.TemplateFormattingError)
+def try_format(_cfg, arg_dict, fragment):
     return fragment.format(**arg_dict)
 
 
