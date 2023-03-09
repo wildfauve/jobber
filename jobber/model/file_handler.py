@@ -17,7 +17,6 @@ def create_python_files(file_object: value.FileTemplate) -> monad.EitherMonad:
     if result.is_left():
         cli_helpers.echo(f"Failure: Creating Python file: {'.'.join(file_object.file_path)} with error: {result.error().message}")
         return result
-    cli_helpers.echo(f"Creating Python file: {'.'.join(file_object.file_path)}")
     return result
 
 
@@ -28,7 +27,7 @@ def apply_path_template(cfg, path: List, arg_dict):
 def format_path(cfg, arg_dict, fragment):
     result = try_format(cfg, arg_dict, fragment)
     if result.is_left():
-        cli_helpers.echo(f"Failure: Formatting Path: Found {result.error().message} for frgment {fragment}")
+        cli_helpers.echo(f"Failure: Formatting Path: Found {result.error().message} for fragment {fragment}")
         return None
     return result.value
 
@@ -39,6 +38,6 @@ def try_format(_cfg, arg_dict, fragment):
 
 
 def templater(cfg, template, template_args):
-    doc = template.doc if hasattr(template, "doc") else ""
+    doc = template.doc.format(**template_args) if hasattr(template, "doc") else ""
     return re.sub('^\n', '', template.template.format(**{**template_args, **{'doc': doc}}
 ))

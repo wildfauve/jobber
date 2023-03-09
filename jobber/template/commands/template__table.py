@@ -1,7 +1,10 @@
 file_path = ["{project}", "repo", "{table_name}.py"]
 
 template = """
-from jobsworthy import repo, performance
+from jobsworthy import repo
+from jobsworthy.util import secrets
+
+from {project}.repo import db
 
 \"""
 {doc}
@@ -59,5 +62,20 @@ class {table_cls_name}(repo.HiveRepo):
 
 """
 
-doc = """"""
+doc = """
+To instantiate an instance of {table_cls_name}, do the following.  Where behaviours are not required, simply remove the 
+constructor argument.  The table_creation_protocol, by convention, is provided on the table definition through the 
+class attribute table_creation_protocol.
 
+Replace the database argument with the name of the project's Database.
+
+{table_cls_name}(
+    database=db.ProjectDb,
+    reader=repo.HiveTableReader,
+    delta_table_reader=repo.DeltaTableReader,
+    stream_reader=repo.DeltaStreamReader,
+    stream_writer=repo.StreamHiveWriter,
+    stream_awaiter=repo.StreamAwaiter,
+    secrets_provider=secrets.Secrets,
+    table_creation_protocol=None)
+"""

@@ -16,13 +16,15 @@ def template_for_table_type(cfg):
         return template__table
     breakpoint()
 
+
 def path_args(cfg):
     return {'project': config.project_location(cfg),
             'table_name': cfg.table_name}
 
 
 def template_args(cfg: config.NewTable):
-    return {'table_name': cfg.table_name,
+    return {'project': config.project_location(cfg),
+            'table_name': cfg.table_name,
             "table_cls_name": cfg.cls_name,
             "table_create_protocol": managed_or_unmanaged(cfg.managed),
             "prop_prefix": cfg.prop_prefix}
